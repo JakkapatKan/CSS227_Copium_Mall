@@ -1,0 +1,67 @@
+
+      
+      <footer class="bg-dark text-center text-white " id="footer" >
+            
+            <div class="container p-4 pb-0 " >
+              
+              <section class="mb-4">
+
+                <a class="btn btn-outline-light btn-floating m-1" onclick="goBack()" role="button">Previous page<i class=""></i
+                  ></a>
+
+                <a class="btn btn-outline-light btn-floating m-1" href="#top" role="button">Back to Top<i class=""></i
+                ></a>
+
+                
+
+              </section>
+              
+            </div>
+
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              © 2021 Copyright:
+              <a class="text-white" href="">By someone who shed blood and tear doing this.</a>
+            </div>
+            
+      </footer>
+      
+      
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+    
+
+
+
+<!------------------------- push footer to bottom script ---------------------------------->
+    <script>
+      function setFooterStyle() {
+          var docHeight = $(window).height();
+          var footerHeight = $('#footer').outerHeight();
+          var footerTop = $('#footer').position().top + footerHeight;
+          if (footerTop < docHeight) {
+              $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
+          } else {
+              $('#footer').css('margin-top', '150px');
+          }
+              $('#footer').removeClass('invisible');
+          }
+          $(document).ready(function() {
+          setFooterStyle();
+          window.onresize = setFooterStyle;
+      });
+
+
+    </script>
+      
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

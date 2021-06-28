@@ -1,0 +1,148 @@
+<%- include('partials/header.ejs') %>
+
+<link rel='stylesheet' href='/stylesheets/product.css'>
+
+<style>
+ 
+ 
+
+ body {
+  overflow-y: scroll; 
+}
+
+  .bot_space{
+    margin-bottom: 20px;
+  }
+  
+  img{
+    width: 80px;
+    height: 60px;
+  }
+
+</style>
+
+
+
+<div class="container mb-4" style="margin-top: 30px;">
+  <h1 style="margin-bottom: 20px;"><%= currentUser.username %> 's Cart</h1>
+  <div class="row">
+      <div class="col-12">
+          <div class="table-responsive">
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th scope="col"> </th>
+                          <th scope="col">Product</th>
+                          <th scope="col">Available</th>
+                          <th scope="col" class="text-center">Quantity</th>
+                          <th scope="col" class="text-right" style="text-align: center;">Price/Unit</th>
+                          <th> </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% let total = 0 %>
+                    <% cart.forEach(function(cart){  %>
+                      
+
+                      <tr>
+                          
+                          <td><img src="<%= cart.image %>" > </td>
+                          <td><%= cart.name %></td>
+                          <td><%= cart.qty %> left</td>
+                          
+                          <form action="/cart/<%=cart._id%>/update?_method=PUT" method="POST">
+                                <input  class="cdTrans" name="cart[pr]"  value="<%= cart.pr %>" />
+                            <td>
+                              <input  style=" align-items: center; text-align: center;"  class="form-control amount" 
+                                name="cart[buyAmount]" type="number" min="1" max="<%= cart.qty %>" value="<%= cart.buyAmount %>"
+                                pattern="[0-9]" /></td>              
+                                <input type="submit" style="position: absolute; left: -9999px; 
+                                    width: 1px; height: 1px;"/>         
+                                
+                          </form>
+
+                          <td class="text-right" style="text-align: center;"> $<%= cart.pr %> </td>
+                          <form id= 'delete-form' action = '/cart/<%= cart._id %>?_method=DELETE' method="POST">
+                            <td class="text-right"><button class="btn btn-sm del-button">Remove<i class="fa fa-trash"></i> </button> </td>
+                          </form>
+                      </tr>
+                      
+
+                    <% total = total + cart.cost %>
+                    <% }); %> 
+
+
+
+                    
+                    
+
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Sub-Total</td>
+                          <td class="text-right">$ <%= total.toFixed(2) %></td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Shipping</td>
+                          <td class="text-right"><strong style="color: red;">Free</strong> </td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><strong>Total</strong></td>
+                          <td class="text-right"><strong>$ <%= total.toFixed(2) %> </strong></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <div class="col mb-2">
+          <div class="row">
+
+            
+            <div class="col-sm-6 ">
+                  <a href="/product"><button  class="btn test-button btn-primary bot_space col-sm-12" >Continue Shopping</button></a>
+            </div>
+
+            <% if(total === 0){ %>
+              <div class="col-sm-6 ">
+                <button type="button" style="float: right;" class="btn green-button uppercase bot_space col-sm-12" disabled >
+                  Order Confirmation
+                </button>
+              </div>
+
+
+
+            <% }else{ %>
+
+            <div class="col-sm-6 ">
+                <a href="/cart/orderconfirm">
+                  <button type="button" style="float: right;" class="btn green-button uppercase bot_space col-sm-12" >
+                    Order Confirmation
+                  </button>
+                </a>
+            </div>
+
+            <%}%>
+          
+
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+  
+
+
+
+<%- include('partials/footer.ejs') %>

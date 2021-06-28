@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs') %>
+<div class='container'>
+
+<form action='/product/<%=collection_id%>/comments/<%=comment._id%>?_method=PUT' method='POST'>
+
+
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Edit Comment</label>
+    <textarea class="form-control" name='comment[text]' placeholder='<%= comment.text %>' value = '<%= comment.text %>' id="exampleFormControlTextarea1" rows="5"></textarea>
+  </div>
+
+
+</div>
+
+
+    <div class="container"><button type="submit" class="btn btn-primary">Update Comment</button></div>
+
+      <!-- <a href='/product'>Go back</a> -->
+  </form>
+</div>
+
+<%- include('../partials/footer.ejs') %>

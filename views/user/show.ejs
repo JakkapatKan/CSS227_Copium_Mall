@@ -1,0 +1,129 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel='stylesheet' href='/stylesheets/product.css'>
+<link rel='stylesheet' href='/stylesheets/show_feature.css'>
+    
+
+<style>
+   span{
+     color: black;
+   }
+
+   .mini-pic{
+    width: 60px;
+    height: 50px;
+  }
+  
+</style>
+
+
+
+<div class="container">
+  <div class="card" style="margin-top: 5px;">
+      <div class="container-fliud">
+          <div class="wrapper row">
+              <div class="preview col-md-4">
+                  
+                  <div class="preview-pic tab-content">
+                    <div  class="tab-pane active"  ><img  src="<%= user.profileImage %>" /></div>
+                  </div>
+                  
+                  
+              </div>
+              <div class="details col-md-6">
+                  <h2 class="product-title"><%= user.username %></h2>
+                  <div class="rating">
+                    
+                  </div>
+                  
+                  
+                  
+                  <h5 class="" style="margin-bottom: 20px;">Name: <span><%= user.firstName %> <%= user.lastName %></span></h5>
+                  <h5 class="" style="margin-bottom: 20px;">Email: <span ><a href="#"><%= user.email %> </a></span></h5>
+                  <h5 class="" style="margin-bottom: 20px;">Address: <span ><%= user.address %> </span></h5>
+                  <h5 class="" style="margin-bottom: 20px;"> <span></span></h5>
+                  <h5 class="" style="margin-bottom: 20px;"><span ></span></h5>
+
+                  <% if(currentUser.username === user.username){ %>
+                    <a class="btn add-to-cart  col-xl-6 col-lg-6 col-md-12 col-sm-12"  href = '/user/<%=user._id%>/edit'>Edit Profile</a>
+                  <%}%>
+                  
+                    
+                     
+                    
+                  </div>
+                
+
+              </div>
+              
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<% if(user.isAdmin){ %>
+
+  <div class="container mb-4" style="margin-top: 50px; ">
+    <h1 style="margin-bottom: 20px;"><%= user.username %>'s listing</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align: center;">Image </th>
+                            <th scope="col" ></th>
+                            <th scope="col" style="text-align: center;">Product name</th>
+                            <th scope="col" class="text-center">Available</th>
+                            <th scope="col" class="text-right" style="text-align: center;">Price/Unit</th>
+                            <th style="text-align: center;"> </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        
+                        
+                       
+                        
+                      <% product.forEach(function(product){ %>
+                        <tr>
+                            
+                            
+                            <td style="text-align: center;"><img class="mini-pic"  src="<%= product.image %>" > </td>
+                            <td ></td>
+                            <td style="text-align: center;"><a href="/product/<%= product.id %>"><%= product.name %></a></td>
+                            <td style="text-align: center;"><%= product.qty %></td>           
+                                  
+                                  
+                            
+  
+                            <td class="text-right" style="text-align: center;"> $<%= product.pr %> </td>
+                            
+                            <td style="text-align: center;"><strong></strong> </td>
+                              
+                        </tr>
+                      <% }) %>
+                        
+
+                        
+
+                    </tbody>
+                    
+
+                </table>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+
+<%}%>
+
+
+
+
+
+
+<%- include('../partials/footer.ejs') %>

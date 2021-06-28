@@ -1,0 +1,177 @@
+<%- include('../partials/header.ejs') %>
+
+
+<link rel='stylesheet' href='/stylesheets/product.css'>
+<link rel='stylesheet' href='/stylesheets/show_feature.css'>
+
+<style>
+   .grey-button {
+  background: #6d6161;
+  padding: 0.5em 0.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; 
+  margin-top: 10px;
+}
+
+.grey-button:hover {
+    background: #353030;
+    color: #fff; 
+}
+
+</style>
+
+<!-- ---------------------------------------Product show card------------------------------------------- -->
+
+<div class="container">
+    <div class="card" style="margin-top: 5px;">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    
+                    <div class="preview-pic tab-content">
+                      <div  class="tab-pane active" id="pic-1 myImg" ><img id="myImg" src="<%= product.image %>" /></div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="details col-md-6">
+                    <h2 class="product-title"><%= product.name %></h2>
+                    <div class="rating">
+                      <span class="review-no" style="opacity: 75%;">Category: <%= product.category %></span>
+                  </div>
+                    <div class="rating">
+                        <span class="review-no" style="opacity: 75%;">Listed by <%= product.author.username %></span>
+                    </div>
+                    
+                    <p class="product-description"><%= product.desc %></p>
+                    <h4 class="price">Current Price: <span style="color: red;">$<%= product.pr %></span></h4>
+                    <% if(product.qty > 0){ %>
+                        <p style="color: red; font-size: 20px;"><%= product.qty %> In Stock!!</p>
+                    <% }else{ %>
+                        <p style="color: red; font-size: 20px;">Out of Stock!!</p>
+                    <% }; %>
+
+                    <div class="action" style="display: inline;">
+                      <form action='/cart/add/<%= prod_id %>' method='POST' >
+
+                        <input type="text" class="cdTrans form-control" name='cart[name]' value='<%= product.name %>'>
+                        <input type="text" class="cdTrans form-control" name='cart[pr]' value='<%= product.pr %>'>
+                        <input type="text" class="cdTrans form-control" name='cart[qty]' value='<%= product.qty %>'>
+                        <input type="text" class="cdTrans form-control" name='cart[image]' value='<%= product.image %>'>
+                        <input type="text" class="cdTrans form-control" name='cart[id]' value='<%= prod_id %>'>
+
+                        <% if(product.qty > 0){ %>
+                            <button class="test-button btn btn-default " href=''  type="submit" >Add to cart</button>
+                        <%}else{%>
+                            <button class="test-button btn btn-default " href='' disabled type="submit" >Add to cart</button>
+                        <%}%>
+
+                      </form>
+                        
+                        <!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button> -->
+                        <% if(currentUser && product.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+
+                            <a  class="add-to-cart btn btn-default" href = '/product/<%=product._id%>/edit'>Edit info</a>
+                            <a  class="grey-button btn btn-default smol-button" href = '/product/<%=product._id%>/log'>show log</a>
+                            <form id= 'delete-form' action = '/product/<%=product._id%>?_method=DELETE' method="POST">
+                                <button onclick="return confirm('Are you sure?')"  type="submit" class="del-button btn btn-default">Delete Product</button>
+                            </form>
+                            
+                        <% } %>
+                      
+                    </div>
+                  
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ---------------------------------------Comment card------------------------------------------------------- -->
+<div class="container" style="margin-bottom: 50px;">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                
+              <div class="preview col-md-3">
+                    
+                <span><h3>Comments</h3></span>
+                
+                
+            </div>
+
+                <% product.comments.forEach(function(comment){ %>
+
+                <div class="media-body" style="background: rgb(255, 255, 255); margin-top: 15px; border-radius: 16px; ">
+                    <div class="well well-lg">
+                        <h4 class="media-heading reviews"><%= comment.author.username %> <small style="font-size: 14px; ">said</small></h4>
+                        
+                        <p class="media-comment"> " <%= comment.text %> "</p>
+
+                        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                            <div style="margin-bottom: 10px; ">
+                            <a href = '/product/<%= product._id %>/comments/<%=comment._id%>/edit' class="add-to-cart btn " >Edit</a>                                         
+                            <form id= 'delete-form' action = '/product/<%= product._id %>/comments/<%=comment._id%>?_method=DELETE' method="POST">
+                                <button onclick="return confirm('Are you sure?')" type="submit" class="del-button btn btn-danger">Delete</button>
+                            </form>
+                            
+                            </div>
+                        <% } %>
+                        
+                        
+                    </div>              
+                </div>
+
+                <% }); %>
+
+                <div class="preview col-md-3">
+            
+              </div>
+              <a style="margin-top: 20px;" class="test-button btn btn-default"  href = '/product/<%=product._id %>/comments/new'>Post new comment</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <img id="myImg" src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
+
+<!-- The Modal -->
+
+<div class="close">
+    <div id="myModal" class="modal ">
+    <!-- <span class="close">&times;</span> -->
+    <img class="modal-content" id="img01">
+    
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+</script>
+
+<%- include('../partials/footer.ejs') %>

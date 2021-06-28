@@ -1,0 +1,70 @@
+<%- include('../partials/header.ejs') %>
+
+<style>
+  
+  
+</style>
+
+<div class="container mb-4" style="margin-top: 50px; ">
+    <h4 style="margin-bottom: 20px;">Product ID: <%= prod_id %> </h4>
+    <h4 style="margin-bottom: 20px;">Product Name: <%= foundProduct.name %> </h4>
+    <h4 style="margin-bottom: 20px;">Selling log</h4>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col" style="text-align: center;">Date</th>                           
+                            <th scope="col" style="text-align: center;" class="text-center">Bought by</th>
+                            <th scope="col" style="text-align: center;">Invoice ID</th>
+                            <th scope="col" class="text-right" style="text-align: center;">Bought amount</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     
+                        
+                        <% foundLog.forEach(function(foundLog){  %>
+                        <tr>
+                            <% var date = foundLog.date; %>
+                            <% date.setHours(date.getHours() + 7) ; %>
+                            <% date = date.toUTCString().replace(/GMT/, ' ') ; %>
+                            
+                            <td><img src="" > </td>
+                            <td style="text-align: center;"><%= date %></L></td>
+                            <td style="text-align: center;"><a href="/user/<%= foundLog.buyer.id %>"><%= foundLog.buyer.username %></a></td>
+                            <td style="text-align: center;"><a href="/orderhistory/<%= foundLog._id %>"><%= foundLog._id %></a></td>           
+                                  
+                                  
+                            
+                            
+                            <td class="text-right" style="text-align: center;"><strong><%= foundLog.product[0].buyAmount %></strong></td>
+                            
+                              <td class="text-right"></td>
+                              
+                        </tr>
+                        
+                        <% }); %> 
+  
+  
+  
+                      
+                      
+  
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+
+<div class="container"></div>
+
+
+
+<%- include('../partials/footer.ejs') %>

@@ -1,0 +1,42 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+  
+  
+
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-group, .row, .row-footsies{   
+    margin-bottom: 20px;
+
+}
+
+.card-header{
+    height: auto;
+    text-align: center;
+    background-color: rgba(33,37,41,0.95); /*Navbar Color*/
+
+    color: white;
+}
+

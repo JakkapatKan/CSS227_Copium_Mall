@@ -1,0 +1,106 @@
+<%- include('../partials/header.ejs') %>
+<link rel='stylesheet' href='/stylesheets/product.css'>
+<style>
+    img{
+    width: 80px;
+    height: 60px;
+  }
+
+  .grey-button {
+  background: #6d6161;
+  padding: 0.5em 0.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; 
+  margin-top: 10px;
+}
+
+.grey-button:hover {
+    background: #353030;
+    color: #fff; 
+}
+
+</style>
+
+
+<div class="container mb-4" style="margin-top: 50px; ">
+    <h1 style="margin-bottom: 20px;">Account Management</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align: center;">Image </th>
+                            <th scope="col" ></th>
+                            <th scope="col" style="text-align: center;">Username</th>
+                            <th scope="col" class="text-center">User ID</th>
+                            <th scope="col" class="text-right" style="text-align: center;"></th>
+                            <th style="text-align: center;"> DELETE </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        
+                        
+                        <% user.forEach(function(user){ %>
+                        
+                        <% if(!user.isAdmin){ %>
+                        
+                        <tr>
+                            
+                            
+                            <td style="text-align: center;"><img  src="<%= user.profileImage %>" ></td>
+                            <td ></td>
+                            <td style="text-align: center;"><%= user.username %></td>
+                            <td style="text-align: center;"><a href="/user/<%= user._id %>"><%= user._id %></a></td>           
+                                  
+                                  
+                            
+  
+                            <td class="text-right" style="text-align: center;">  </td>
+                            
+                            <form id= 'del_user_form' action = '/user/<%= user._id %>?_method=DELETE' method="POST">
+                                <td style="text-align: center;" class="text-right">
+                                    <button onclick="return confirm('Are you sure you want to delete this user?')" class="btn btn-sm del-button">delete<i class="fa fa-trash"></i> </button>
+                                </td>
+                            </form>
+                              
+                        </tr>
+
+                        </tr>
+                        <%}%>
+                        <%})%>
+                        
+
+                    </tbody>
+                    
+
+                </table>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+
+
+
+
+<div class="container"></div>
+
+
+
+
+    
+    
+    
+
+
+  
+
+
+<%- include('../partials/footer.ejs') %>

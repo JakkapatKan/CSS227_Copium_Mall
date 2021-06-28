@@ -1,0 +1,320 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel='stylesheet' href='/stylesheets/product.css'>
+<style>
+ 
+ 
+
+ body {
+  overflow-y: scroll; 
+}
+
+  .bot_space{
+    margin-bottom: 20px;
+  }
+  
+  img{
+    width: 80px;
+    height: 60px;
+  }
+
+
+  .form-control {
+    border-bottom: 2px solid rgb(170, 170, 170) !important;
+    border: none;
+    
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #8bbafe;
+    outline: 0;
+    box-shadow: none;
+    border-radius: 0px;
+    border-bottom: 2px solid rgba(33,37,41,0.95) !important
+}
+
+.inputbox {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%
+}
+
+.inputbox span {
+    position: absolute;
+    top: 7px;
+    left: 11px;
+    transition: 0.5s
+}
+
+.inputbox i {
+    position: absolute;
+    top: 13px;
+    right: 8px;
+    transition: 0.5s;
+    color: #030511
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.inputbox input:focus~span {
+    transform: translateX(-0px) translateY(-15px);
+    font-size: 12px
+}
+
+.inputbox input:valid~span {
+    transform: translateX(-0px) translateY(-15px);
+    font-size: 12px
+}
+
+
+
+
+</style>
+
+
+
+<div class="container mb-4" style="margin-top: 30px;">
+  <h1 style="margin-bottom: 20px;">Order Confirmation</h1>
+  <div class="row">
+      <div class="col-12">
+          <div class="table-responsive">
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th scope="col"> </th>
+                          <th scope="col">Product</th>
+                          <th scope="col">Available</th>
+                          <th scope="col" class="text-center">Quantity</th>
+                          <th scope="col" class="text-right" style="text-align: center;">Price/Unit</th>
+                          <th> Total </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% let total = 0 %>
+                    <% cart.forEach(function(cart){  %>
+                      
+
+                      <tr>
+                          
+                          <td><img src="<%= cart.image %>" > </td>
+                          <td><%= cart.name %></td>
+                          <td><%= cart.qty %> left</td>
+                          
+                          <form action="/cart/<%=cart._id%>/update?_method=PUT" method="POST">
+                                <input  class="cdTrans" name="cart[pr]"  value="<%= cart.pr %>" />
+                            <td style="text-align: center;"><%= cart.buyAmount %></td>              
+                                        
+                                
+                          </form>
+
+                          <td class="text-right" style="text-align: center;"> $<%= cart.pr %> </td>
+                          <td class="text-right"><strong> $<%= (cart.pr*cart.buyAmount).toFixed(2) %> </strong></td>
+
+                      </tr>
+                      
+
+                    <% total = total + cart.cost %>
+                    <% }); %> 
+
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Sub-Total</td>
+                          <td class="text-right">$ <%= total.toFixed(2) %></td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Shipping</td>
+                          <td class="text-right"><strong style="color: red;">Free</strong> </td>
+                      </tr>
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><strong>Total</strong></td>
+                          <td class="text-right"><strong>$ <%= total.toFixed(2) %> </strong></td>
+                          
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      
+      
+
+
+      <!------------------------------------------- Form ------------------------------------------------------>
+
+<form id="user_form" action = '/cart/add_invoice ' method="POST">
+          <input class="cdTrans" name="invoice[total_pr]" value="<%= total.toFixed(2) %>">
+          <div class="container" style="margin-bottom: 50px;">
+            <div class="card" style="background-color: rgb(247, 247, 247);">
+                <div class="container-fliud">
+                    <div class="wrapper row">
+                        
+                      <div class=" col-12 bot_space">    
+                        <span><h3>Billing Form</h3></span>
+                      </div>
+
+             
+
+                  <div class="col-sm-6 bot_space" >
+                    <label for="firstName" class="form-label">First name</label>
+                    <input type="text" name="invoice[buyer.firstName]" class="form-control" id="firstName" placeholder="<%= owner.firstName %>" value="<%= owner.firstName %>" required="">
+                    <div class="invalid-feedback">
+                      Valid first name is required.
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 bot_space">
+                    <label for="lastName" class="form-label">Last name</label>
+                    <input type="text" name="invoice[buyer.lastName]" class="form-control" id="lastName" placeholder="<%= owner.lastName %>" value="<%= owner.lastName %>" required="">
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input  type="text" name="invoice[buyer.email]" class="form-control"  placeholder="<%= owner.email %>" value="<%= owner.email %>" required="">
+                    <div class="invalid-feedback">
+                      Valid email is required.
+                    </div>
+                  </div>
+ 
+                  <div  class="mb-3 col-12" style="margin-top: 30px; ">
+                    <label  class="form-label ">Shipping Address</label>
+                    <textarea  class="form-control " name="invoice[buyer.ship_address]" rows="2"
+                    value="<%= owner.address %>" placeholder="<%= owner.address %>" ><%= owner.address %></textarea>
+                  </div>
+
+                  <div class="mb-3 bot_space col-12" style="margin-top: 20px;" >
+                    <label for="exampleFormControlTextarea1" class="form-label">Payment method</label>
+                    <select name="invoice[payment.method]" type="text" id="" class="form-select" name="" >                                      
+                      <option value="Visa">Visa</option>
+                      <option value="Master Card">Master Card</option>
+                      <option value="American Express">American Express</option>
+                      
+                    </select>
+                  </div>
+
+                  <!-- <div class="mb-3 bot_space col-6 " style="margin-top: 20px; vertical-align: middle ;" >
+                    <label for="exampleFormControlTextarea1" style="margin-top: 35px;" class="form-label">or</label>
+                  </div> -->
+
+                  <div class="col-sm-12 bot_space">
+                    <label for="name-on-card" class="form-label">Name on Card</label>
+                    <input name="invoice[payment.card_name]" type="text" class="form-control"  placeholder="" value="" >
+                    <div class="invalid-feedback">
+                      Valid name is required.
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 bot_space">
+                    <label class="form-label">Card Number</label>
+                    <input name="invoice[payment.card_num]" type="text" class="form-control"  placeholder="" value="" >
+                    <div class="invalid-feedback">
+                      Valid number is required.
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3 bot_space">
+                    <label class="form-label">Expiry</label>
+                    <input name="invoice[payment.card_exp]" type="text" class="form-control"  placeholder="" value="">
+                    <div class="invalid-feedback">
+                      Valid date is required.
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3 bot_space">
+                    <label class="form-label">CVV</label>
+                    <input name="invoice[payment.card_cvv]" type="text" class="form-control"  placeholder="" value="" >
+                    <div class="invalid-feedback">
+                      Valid number is required.
+                    </div>
+                  </div>
+
+                  
+
+
+              </div>
+            </div>
+          </div>
+      </div>
+    </form>
+      <!------------------------------------------- two button  ------------------------------------->
+      
+        <div class="col-sm-6  ">
+          <a href="/cart"><button  class="btn test-button btn-primary bot_space col-12" >Back to Cart</button></a>
+        </div>
+
+        <div class="col-sm-6">
+            <button  type="button" class="btn green-button uppercase bot_space col-12 "  data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Proceed to checkout
+            </button>
+        </div>
+
+        <!-- <form action="/cart/pay" method="POST">
+          <button type="submit"  style="float: right;" class="btn add-to-cart uppercase bot_space col-3" >
+            Test Paypal Button 
+          </button>
+        </form>
+       -->
+      <!------------------------------------------- two button  ------------------------------------->
+
+
+
+
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to place this order?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn grey-button btn-default smol-button" data-bs-dismiss="modal">Close</button>
+      <!-- <form  action = '/cart/add_invoice/<%= currentUser._id %> ' method="POST"> -->
+        <button  type="submit" form="user_form" class="green-button btn btn-default smol-button">Confirm</button>
+      <!-- </form> -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+
+
+</script>
+
+
+
+
+<%- include('../partials/footer.ejs') %>

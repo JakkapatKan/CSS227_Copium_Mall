@@ -1,0 +1,72 @@
+<%- include('partials/header.ejs') %>
+
+<link rel='stylesheet' href='/stylesheets/form.css'>
+
+
+<section class="py-5 text-center container">
+<h2>Please log in</h2>
+<form action='/login' method='POST'>
+
+    <style>
+       
+        
+        
+    </style>
+
+    <main class="login-form" >
+        <div class="cotainer">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Login</div>
+                        <div class="card-body">
+                            <form action="" method="">
+
+                                <div class="form-group row row-footsies" >
+                                    <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="username" class="form-control" name="username" required autofocus>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group row row-footsies" >
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="password" class="form-control" name="password" >
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    
+    </main>
+
+    <!-- <div style="max-width: 300px; " class=" center mb-3 form-floating ">
+        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="username">
+        <label for="floatingInput">Username</label>
+    </div>
+
+    <div style="max-width: 300px; " class=" center mb-3 form-floating ">
+        <input type="password" name="password" class="form-control" id="floatingInput" placeholder="password">
+        <label for="floatingInput">Password</label>
+    </div>
+
+    
+
+    <input style="max-width: 300px; padding: 18px;  " class=" w-50 btn btn-primary" type='submit' value='Login'> -->
+
+    
+
+</form>
+</section>
+<%- include('partials/footer.ejs') %>

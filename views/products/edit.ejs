@@ -1,0 +1,87 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel='stylesheet' href='/stylesheets/form.css'>
+
+
+<div class='container'>
+<form action='/product/<%= product._id %>?_method=PUT' method='POST' enctype="multipart/form-data">
+
+
+
+  <main class="login-form" >
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header " style="text-align: center;" >Edit Product</div>
+                    <div class="card-body">
+                        <form action="" method="">
+
+                            <div class="form-group row row-footsies">
+                                <label for="" class="col-md-4 col-form-label text-md-right">Product Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="" class="form-control" name="product[name]" placeholder='<%= product.name %>' value="<%= product.name %>" >
+                                </div>
+                            </div>
+
+                            <div class="form-group row row-footsies">
+                              <label for="" class="col-md-4 col-form-label text-md-right">Product Category</label>
+                              <div class="col-md-6">
+                                  <select type="text" id="" class="form-select" name="product[category]"  >                                      
+                                      <option value="<%= product.category %>" >< Select Category ></option>
+                                      <option value="Food">Food</option>
+                                      <option value="Fashion">Fashion</option>
+                                      <option value="Electronic">Electronic</option>
+                                      <option value="Games&Hobbies">Games&Hobbies</option>
+                                  </select>
+                                  
+                              </div>
+                            </div>
+                            
+                            <div class="form-group row row-footsies">
+                              <label for="" class="col-md-4 col-form-label text-md-right">Product Image</label>
+                              <div class="col-md-6">
+                                  <img src="<%= product.image %>" width="300px" style="margin-bottom: 15px;">
+                                  <input type="file" id="" class="form-control" name="image" accept="image/" value="<%= product.image %>">
+                              </div>
+                          </div>
+                            
+                          <div class="form-group row row-footsies">
+                            <label for="" class="col-md-4 col-form-label text-md-right">Product Description</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" name='product[desc]' id="exampleFormControlTextarea1" rows="5" placeholder='<%= product.desc %>' value="<%= product.desc %>" ><%= product.desc %></textarea>
+                            </div>
+                          </div>  
+
+                          <div class="form-group row row-footsies">
+                            <label for="" class="col-md-4 col-form-label text-md-right">Product Price</label>
+                            <div class="col-md-6">
+                                <input type="text" id="" class="form-control" name="product[pr]" placeholder='<%= product.pr %>' value="<%= product.pr %>" >
+                            </div>
+                          </div>
+
+                          <div class="form-group row row-footsies">
+                              <label for="" class="col-md-4 col-form-label text-md-right">Product Quantity</label>
+                              <div class="col-md-6">
+                                  <input type="text" id="" class="form-control" name="product[qty]" placeholder='<%= product.qty %>' value="<%= product.qty %>" >
+                              </div>
+                          </div> 
+
+                          
+                            
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">Update product</button>
+                                
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</main>
+
+
+<%- include('../partials/footer.ejs') %>

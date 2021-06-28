@@ -1,0 +1,84 @@
+<%- include('../partials/header.ejs') %>
+<style>
+    img{
+    width: 80px;
+    height: 60px;
+  }
+
+</style>
+
+
+<div class="container mb-4" style="margin-top: 50px; ">
+    <h1 style="margin-bottom: 20px;">Invoice ID: <%= invoice_id %></h1>
+    <% var date = foundInvoice.date; %>
+    <% date.setHours(date.getHours() + 7) ; %>
+    <% date = date.toUTCString().replace(/GMT/, ' ') ; %>
+    <h5><strong> Buyer username:</strong> <%= foundInvoice.buyer.username %> </h5>
+    <h5><strong> Date:</strong> <%= date %> </h5>
+    <h5><strong> Shipped to:</strong> <%= foundInvoice.buyer.firstName %> <%= foundInvoice.buyer.lastName %> <%= foundInvoice.buyer.ship_address %></h5>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align: center;">Image </th>
+                            <th scope="col" ></th>
+                            <th scope="col" style="text-align: center;">Product name</th>
+                            <th scope="col" class="text-center">Bought amount</th>
+                            <th scope="col" class="text-right" style="text-align: center;">Price/Unit</th>
+                            <th style="text-align: center;"> Total Price </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        
+                        
+                        <% foundInvoice.product.forEach(function(product){ %>
+                        <% let total_price = 0 %>
+                        
+
+                        <tr>
+                            
+                            
+                            <td style="text-align: center;"><img " src="<%= product.image %>" > </td>
+                            <td ></td>
+                            <td style="text-align: center;"><a href="/product/<%= product.id %>"><%= product.name %></a></td>
+                            <td style="text-align: center;"><%= product.buyAmount %></td>           
+                                  
+                                  
+                            
+  
+                            <td class="text-right" style="text-align: center;"> $<%= product.pr %> </td>
+                            <% total_price = product.buyAmount * product.pr %>
+                            <td style="text-align: center;"><strong>$<%= total_price.toFixed(2) %></strong> </td>
+                              
+                        </tr>
+
+                        </tr>
+
+                        <%})%>
+
+                    </tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Sub-Total</td>
+                        <td class="text-right"><strong>$<%= foundInvoice.total_pr.toFixed(2) %></strong></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+
+<div class="container"></div>
+
+
+<%- include('../partials/footer.ejs') %>

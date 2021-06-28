@@ -1,0 +1,70 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel='stylesheet' href='/stylesheets/product.css'>
+<style>
+  
+
+</style>
+
+<script>
+    
+</script>
+
+<div class="container mb-4" style="margin-top: 50px; ">
+    <h1 style="margin-bottom: 20px;"><%= owner %> 's History</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col" style="text-align: center;">Date</th>
+                            <th scope="col"></th>
+                            <th scope="col" class="text-center">Invoice ID</th>
+                            <th scope="col" class="text-right" style="text-align: center;">Total Price</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     
+                        <% buyHistory.forEach(function(buyHistory){  %>
+  
+                        <tr>
+                            <% var date = buyHistory.date; %>
+                            <% date.setHours(date.getHours() + 7) ; %>
+                            <% date = date.toUTCString().replace(/GMT/, ' ') ; %>
+                            
+                            <td><img src="" > </td>
+                            <td style="text-align: center;"><%=date%></td>
+                            <td></td>
+                            <td style="text-align: center;"><a href="/orderhistory/<%= buyHistory._id %>"><%= buyHistory._id %></a></td>           
+                                  
+                                  
+                            
+                            
+                            <td class="text-right" style="text-align: center;"><strong> $<%= buyHistory.total_pr %> </strong></td>
+                              <td class="text-right"></td>
+                              
+                        </tr>
+                        
+                        <% }); %> 
+  
+  
+  
+                      
+                      
+  
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+
+<div class="container"></div>
+
+
+<%- include('../partials/footer.ejs') %>
